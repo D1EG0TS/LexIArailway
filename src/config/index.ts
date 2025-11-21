@@ -3,7 +3,7 @@ import Constants from 'expo-constants';
 const extra = (Constants?.expoConfig?.extra as any) || {};
 
 export const API_URL =
-  process.env.EXPO_PUBLIC_API_URL || extra.apiUrl || 'http://192.168.1.108:8000';
+  process.env.EXPO_PUBLIC_API_URL || extra.apiUrl || 'https://apiloginlexiarailwal-production.up.railway.app';
 
 export const LEGAL_API_URL =
   process.env.EXPO_PUBLIC_LEGAL_API_URL || extra.legalApiUrl || 'http://192.168.1.108:8001';

@@ -6,7 +6,7 @@ export const API_URL =
   process.env.EXPO_PUBLIC_API_URL || extra.apiUrl || 'https://apiloginlexiarailwal-production.up.railway.app';
 
 export const LEGAL_API_URL =
-  process.env.EXPO_PUBLIC_LEGAL_API_URL || extra.legalApiUrl || 'http://192.168.1.108:8001';
+  process.env.EXPO_PUBLIC_LEGAL_API_URL || extra.legalApiUrl || 'https://apilegalrailway-production.up.railway.app';
 
 export const getApiUrl = () => API_URL;
 export const getLegalApiUrl = () => LEGAL_API_URL;

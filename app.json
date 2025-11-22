@@ -45,7 +45,8 @@
       "reactCompiler": true
     },
     "extra": {
-      "apiUrl": "https://apiloginlexiarailwal-production.up.railway.app"
+      "apiUrl": "https://apiloginlexiarailwal-production.up.railway.app",
+      "legalApiUrl": "https://apilegalrailway-production.up.railway.app"
     }
   }
 }

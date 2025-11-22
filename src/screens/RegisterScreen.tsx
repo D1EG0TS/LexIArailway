@@ -32,12 +32,13 @@ export default function RegisterScreen({ navigation }: any) {
   const onSubmit = async (data: FormData) => {
     try {
       const payload = { email: data.email, full_name: data.full_name, password: data.password, role: 'user' };
-      await registerUser({ ...payload, role: undefined });
+      await registerUser({ email: data.email, full_name: data.full_name, password: data.password });
       alert('Registro exitoso. Ahora puedes iniciar sesión.');
       reset();
       navigation.navigate('Login');
     } catch (e: any) {
-      alert('El correo ya está registrado');
+      const msg = e?.response?.data?.detail || e?.response?.data?.message || e?.message || 'Error al registrar';
+      alert(typeof msg === 'string' ? msg : JSON.stringify(msg));
     }
   };
 

@@ -39,7 +39,15 @@ export default function LoginScreen({ navigation }: any) {
     try {
       await login(data.email, data.password);
     } catch (e: any) {
-      alert('Credenciales inválidas');
+      const status = e?.response?.status;
+      const code = e?.code;
+      const baseURL = e?.config?.baseURL || '';
+      const url = `${baseURL}${e?.config?.url || ''}`;
+      const payload = e?.response?.data;
+      const body = typeof payload === 'string' ? payload : (payload?.detail || payload?.message || (payload ? JSON.stringify(payload) : ''));
+      const message = e?.message;
+      const text = [status ? `HTTP ${status}` : 'Network Error', url, code ? `Code: ${code}` : '', message || '', body || ''].filter(Boolean).join('\n');
+      alert(text);
     }
   };
 

@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useAuth } from '../hooks/useAuth';
+import type { Role } from '../context/AuthContext';
 import { LegalTheme } from '../constants/legaltheme';
 import React, { useState } from 'react';
 
@@ -31,14 +32,22 @@ export default function RegisterScreen({ navigation }: any) {
 
   const onSubmit = async (data: FormData) => {
     try {
-      const payload = { email: data.email, full_name: data.full_name, password: data.password, role: 'user' };
-      await registerUser({ email: data.email, full_name: data.full_name, password: data.password });
+      const role: Role = 'user';
+      const payload = { email: data.email, full_name: data.full_name, password: data.password, role };
+      await registerUser(payload);
       alert('Registro exitoso. Ahora puedes iniciar sesión.');
       reset();
       navigation.navigate('Login');
     } catch (e: any) {
-      const msg = e?.response?.data?.detail || e?.response?.data?.message || e?.message || 'Error al registrar';
-      alert(typeof msg === 'string' ? msg : JSON.stringify(msg));
+      const status = e?.response?.status;
+      const code = e?.code;
+      const baseURL = e?.config?.baseURL || '';
+      const url = `${baseURL}${e?.config?.url || ''}`;
+      const payload = e?.response?.data;
+      const body = typeof payload === 'string' ? payload : (payload?.detail || payload?.message || (payload ? JSON.stringify(payload) : ''));
+      const message = e?.message;
+      const text = [status ? `HTTP ${status}` : 'Network Error', url, code ? `Code: ${code}` : '', message || '', body || ''].filter(Boolean).join('\n');
+      alert(text);
     }
   };
 
